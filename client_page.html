@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <title>Toggle Switch</title>
+    <style>
+        h1 {
+            color: darkgreen;
+        }
+        
+        /* Toggle in label designing */
+        .toggle {
+            position: relative;
+            display: inline-block;
+            width: 100px;
+            height: 52px;
+            background-color: rgb(171, 45, 10);
+            border-radius: 30px;
+            border: 2px solid gray;
+        }
+        
+        /* After slide changes */
+        .toggle:after {
+            content: '';
+            position:absolute;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: gray;
+            top: 1px;
+            left: 1px;
+            transition: all 0.5s;
+        }
+        /* Toggle text */
+        p {
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: bold;
+        }
+        
+        /* Checkbox checked effect */
+        .checkbox:checked + .toggle::after {
+            left: 49px;
+        }
+        
+        /* Checkbox checked toggle label bg color */
+        .checkbox:checked + .toggle {
+            background-color: rgb(255, 221, 0);
+        }
+        
+        /* Checkbox vanished */
+        .checkbox {
+            display: none;
+        }
+
+        body {
+          
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            display: flex;
+            padding-top: 50px ;
+            justify-content: center;
+            align-items: flex-end;
+            gap: 20px; /* Adjust the gap between boxes if needed */
+        }
+
+        .box {
+            width: 60%; /* Increase size of box */
+            height: 450px; /* Increase size of box */
+            border: 1px solid #000;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            background-size: cover;
+        }
+
+        .toggle-container {
+            margin-bottom: 10px;
+        }
+        .msg_box{
+            background-color: black;
+            color: white;
+           
+            text-align: center;
+            display: flex;
+            padding: 25px;
+        }
+        .box:nth-child(1){
+            background-image: url('plastic.jpg');
+        }
+        .box:nth-child(2){
+            background-image: url('ewaste.jpg');
+        }
+        .box:nth-child(3){
+            background-image: url('bio.jpg');
+
+        }
+        .toggle-container{
+            margin-bottom: 20px;
+        }
+        .ss{
+            font-size: 15px;
+        }
+        .submit{
+            width: 80px;
+            height: 60px;
+            border-radius: 12px;
+        }
+    </style>
+</head>
+<body>
+    
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Navbar</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+              <a class="nav-link" href="info.html">info</a>
+              <a class="nav-link" href="profile_view.html">Profile</a>
+              <a class="nav-link" href="subscription.html">Subscription</a>
+            </div>
+          </div>
+        </div>
+      </nav>
+    
+    
+    <p><h1></h1>
+    <div class="container">
+        <div class="box">
+            
+            <div class="toggle-container">
+                <input type="checkbox" id="switch1" class="checkbox" />
+                <label for="switch1" class="toggle">
+                    <p class="ss">&nbsp; &nbsp;ON&nbsp;&nbsp;&nbsp;&nbsp;OFF</p>
+                </label>
+            </div>
+        </div>
+        <div class="box">
+          
+            <div class="toggle-container">
+                <input type="checkbox" id="switch2" class="checkbox" />
+                <label for="switch2" class="toggle">
+                    <p class="ss">&nbsp; &nbsp;ON&nbsp;&nbsp;&nbsp;&nbsp; OFF</p>
+                </label>
+            </div>
+        </div>
+        <div class="box">
+            
+            <div class="toggle-container">
+                <input type="checkbox" id="switch3" class="checkbox" />
+                <label for="switch3" class="toggle">
+                    <p class="ss">&nbsp; &nbsp;ON&nbsp;&nbsp;&nbsp;&nbsp; OFF</p>
+                    
+                </label>
+            </div>
+        </div>
+    </div></p><br>
+    <center>
+        <button onclick="submitOrder()" class="submit">SUBMIT</button>
+        <p id="order-status"></p>
+    </center>
+    <div>
+    <h3 align="'left"><b>MEMO</b></h3>
+    <div id="receivedMessage" class="msg_box"></div>
+    </div>
+    <script>
+         
+        window.onload = function() {
+            const message = localStorage.getItem('message');
+            if (message) {
+                document.getElementById('receivedMessage').textContent = `Today we will be visiting ward number: ${message}`;
+            } else {
+                document.getElementById('receivedMessage').textContent = 'No new messages.';
+            }
+        }
+
+       
+    
+        function submitOrder() {
+            const switch1 = document.getElementById('switch1').checked;
+            const switch2 = document.getElementById('switch2').checked;
+            const switch3 = document.getElementById('switch3').checked;
+            
+            // Save the data to localStorage
+            const order = {
+                switch1: switch1,
+                switch2: switch2,
+                switch3: switch3,
+                status: 'pending'
+            };
+            
+            localStorage.setItem('order', JSON.stringify(order));
+            alert("Order Submitted!");
+            
+            // Redirect to the seller page
+            window.location.href = 'worker.html';
+        }
+
+        // Check if the order was completed
+        /*function checkOrderStatus() {
+            const order = JSON.parse(localStorage.getItem('order'));
+            if (order && order.status === 'completed') {
+                document.getElementById('order-status').innerText = 'Your order has been completed!';
+            }
+        }*/
+        
+        window.onload = checkOrderStatus;
+    </script>
+    
+</body>
+</html>
